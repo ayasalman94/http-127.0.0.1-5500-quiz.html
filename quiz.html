@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>States of Matter Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f7ff;
+        }
+        h1 {
+            color: #1e40af;
+            text-align: center;
+        }
+        .question {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .option {
+            margin: 8px 0;
+        }
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        #result {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+        .correct {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        .incorrect {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+    </style>
+</head>
+<body>
+    <h1>States of Matter Quiz</h1>
+    
+    <div class="question">
+        <p><b>1. Which state of matter has a definite shape and volume?</b></p>
+        <div class="option">
+            <input type="radio" id="q1a" name="q1">
+            <label for="q1a">Liquid</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="q1b" name="q1" data-correct="true">
+            <label for="q1b">Solid</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="q1c" name="q1">
+            <label for="q1c">Gas</label>
+        </div>
+    </div>
+    
+    <div class="question">
+        <p><b>2. What is the process called when a liquid changes to a gas?</b></p>
+        <div class="option">
+            <input type="radio" id="q2a" name="q2">
+            <label for="q2a">Freezing</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="q2b" name="q2">
+            <label for="q2b">Condensation</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="q2c" name="q2" data-correct="true">
+            <label for="q2c">Evaporation</label>
+        </div>
+    </div>
+    
+    <div class="question">
+        <p><b>3. Which of these is NOT a gas at room temperature?</b></p>
+        <div class="option">
+            <input type="radio" id="q3a" name="q3">
+            <label for="q3a">Oxygen</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="q3b" name="q3" data-correct="true">
+            <label for="q3b">Water</label>
+        </div>
+        <div class="option">
+            <input type="radio" id="q3c" name="q3">
+            <label for="q3c">Carbon dioxide</label>
+        </div>
+    </div>
+    
+    <button onclick="checkQuiz()">Submit Quiz</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        function checkQuiz() {
+            const questions = document.querySelectorAll('.question');
+            let correct = 0;
+            let answered = 0;
+            
+            questions.forEach((question, index) => {
+                const options = question.querySelectorAll('input[type="radio"]');
+                let questionAnswered = false;
+                
+                options.forEach(option => {
+                    if (option.checked) {
+                        questionAnswered = true;
+                        if (option.hasAttribute('data-correct')) {
+                            correct++;
+                        }
+                    }
+                });
+                
+                if (questionAnswered) {
+                    answered++;
+                }
+            });
+            
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            
+            if (answered < questions.length) {
+                result.innerHTML = "Please answer all questions.";
+                result.className = "incorrect";
+            } else if (correct === questions.length) {
+                result.innerHTML = `Perfect! You got all ${correct} questions correct!`;
+                result.className = "correct";
+            } else {
+                result.innerHTML = `You got ${correct} out of ${questions.length} questions correct. Try again!`;
+                result.className = "incorrect";
+            }
+        }
+    </script>
+</body>
+</html>
